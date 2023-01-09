@@ -8,6 +8,8 @@ const fetchImage = async (searchedImages) => {
 // fetchImage().then((images) => console.log(images));
 
 const form = document.querySelector("#search-form");
+const gallery = document.querySelector(".gallery");
+
 form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
 
@@ -22,5 +24,40 @@ function onInput(evt) {
   const { searchQuery } = evt.currentTarget.elements;
   return searchQuery.value;
 }
+// function createGalleryMarkup(images) {
+//   const galleryMarkup = images
+//     .map(
+//       ({ webformatURL }) =>
+//         `<img src="${webformatURL}" alt="${tags}" loading="lazy" />`
+//     )
+//     .join("");
 
-// function createImageMarkup() {}
+//   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+// }
+
+// function createGalleryMarkup(images) {
+//   const galleryMarkup = images
+//     .map(
+//       ({ webformatURL, tags, likes, views, comments, downloads }) =>
+//         `<div class="photo-card">
+//   <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+//   <div class="info">
+//     <p class="info-item">
+//       <b>${likes}</b>
+//     </p>
+//     <p class="info-item">
+//       <b>${views}</b>
+//     </p>
+//     <p class="info-item">
+//       <b>${comments}</b>
+//     </p>
+//     <p class="info-item">
+//       <b>${downloads}</b>
+//     </p>
+//   </div>
+// </div>`
+//     )
+//     .join("");
+
+//   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+// }
