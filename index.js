@@ -7,30 +7,20 @@ const fetchImage = async (searchedImages) => {
 };
 // fetchImage().then((images) => console.log(images));
 
-// const input = document.querySelector('[name="searchQuery"]');
-// const submitBtn = document.querySelector("button");
-// input.addEventListener("input", onInput);
-// submitBtn.addEventListener("submit", () => {
-//   console.log("ok");
-// });
-
-// function onInput() {
-//   const searchedImages = input.value;
-// }
-// function onSubmit() {
-//   console.log("ok");
-// }
-// function createImageMarkup() {}
-
 const form = document.querySelector("#search-form");
-
 form.addEventListener("submit", onSubmit);
+form.addEventListener("input", onInput);
+
 function onSubmit(evt) {
   evt.preventDefault();
+  fetchImage("cat").then((images) => {
+    console.log(images);
+  });
 }
 
-form.addEventListener("input", onInput);
 function onInput(evt) {
   const { searchQuery } = evt.currentTarget.elements;
   console.log(searchQuery.value);
 }
+
+// function createImageMarkup() {}
