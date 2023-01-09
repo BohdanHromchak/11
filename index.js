@@ -13,16 +13,14 @@ form.addEventListener("input", onInput);
 
 function onSubmit(evt) {
   evt.preventDefault();
-  const test1 = onInput(evt);
-  fetchImage(test1).then((images) => {
+  fetchImage(onInput(evt)).then((images) => {
     console.log(images);
   });
 }
 
 function onInput(evt) {
   const { searchQuery } = evt.currentTarget.elements;
-  const test = searchQuery.value;
-  return test;
+  return searchQuery.value;
 }
 
 // function createImageMarkup() {}
