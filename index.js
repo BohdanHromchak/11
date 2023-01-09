@@ -27,4 +27,21 @@ const fetchImage = async (searchedImages) => {
   const images = await response.json();
   return images;
 };
-fetchImage().then((images) => console.log(images));
+// fetchImage().then((images) => console.log(images));
+
+const input = document.querySelector('[name="searchQuery"]');
+input.addEventListener("input", onInput);
+
+let mage = "";
+function onInput() {
+  mage = input.value;
+  console.log(mage);
+}
+
+// input.addEventListener("submit", onSubmit);
+
+// const searchedImage = "";
+
+// function onSubmit() {}
+
+// function createImageMarkup() {}
