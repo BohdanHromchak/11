@@ -16,6 +16,7 @@ form.addEventListener("input", onInput);
 function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput(evt)).then((images) => {
+    console.log(images.hits);
     createGalleryMarkup(images.hits);
   });
 }
@@ -30,7 +31,7 @@ function createGalleryMarkup(images) {
     .map(
       ({ webformatURL, tags, likes, views, comments, downloads }) =>
         `<div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" />
+  <img src="${webformatURL}" alt="${tags}" loading="lazy"/>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}

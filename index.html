@@ -13,13 +13,19 @@
   </head>
   <body>
     <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
+      <div class="search-form--wrapper">
+        <input
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit">
+          <svg width="10px" height="10px">
+            <use href="./search-finder-magnifying-glass-svgrepo-com.svg"></use>
+          </svg>
+        </button>
+      </div>
     </form>
     <div class="gallery"></div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
