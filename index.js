@@ -1,6 +1,6 @@
-const fetchImage = async (searchedImages) => {
+const fetchImage = async (searchedImages, page) => {
   const response = await fetch(
-    `https://pixabay.com/api/?key=32715422-e0410e3c137bf18af69487d41&q=${searchedImages}&image_type=photo&orientation=horizontal&safesearch=true`
+    `https://pixabay.com/api/?key=32715422-e0410e3c137bf18af69487d41&q=${searchedImages}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
   );
   const images = await response.json();
   return images;
@@ -10,13 +10,16 @@ const fetchImage = async (searchedImages) => {
 const form = document.querySelector("#search-form");
 const gallery = document.querySelector(".gallery");
 const input = document.querySelector('[name="searchQuery"]');
+const loadMoreBtn = document.querySelector(".load-more");
 
 form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
+loadMoreBtn.addEventListener("click", onLoadMore);
 
 function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput(evt)).then((images) => {
+    console.log(images);
     gallery.innerHTML = "";
     if (images.hits.length === 0 || !input.value) {
       alert(
@@ -66,4 +69,8 @@ function createGalleryMarkup(images) {
     .join("");
 
   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+}
+
+function onLoadMore() {
+  console.log("ok");
 }
