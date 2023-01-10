@@ -16,8 +16,14 @@ form.addEventListener("input", onInput);
 function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput(evt)).then((images) => {
-    console.log(images.hits);
-    createGalleryMarkup(images.hits);
+    gallery.innerHTML = "";
+    if (images.hits.length === 0) {
+      alert(
+        "Sorry, there are no images matching your search query. Please try again."
+      );
+    } else {
+      createGalleryMarkup(images.hits);
+    }
   });
 }
 
@@ -29,9 +35,17 @@ function onInput(evt) {
 function createGalleryMarkup(images) {
   const galleryMarkup = images
     .map(
-      ({ webformatURL, tags, likes, views, comments, downloads }) =>
+      ({
+        webformatURL,
+        largeImageURL,
+        tags,
+        likes,
+        views,
+        comments,
+        downloads,
+      }) =>
         `<div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy"/>
+  <img src="${webformatURL}" data-source="${largeImageURL}" alt="${tags}" loading="lazy"/>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}
