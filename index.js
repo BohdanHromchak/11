@@ -9,6 +9,7 @@ const fetchImage = async (searchedImages) => {
 
 const form = document.querySelector("#search-form");
 const gallery = document.querySelector(".gallery");
+const input = document.querySelector('[name="searchQuery"]');
 
 form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
@@ -17,7 +18,7 @@ function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput(evt)).then((images) => {
     gallery.innerHTML = "";
-    if (images.hits.length === 0) {
+    if (images.hits.length === 0 || !input.value) {
       alert(
         "Sorry, there are no images matching your search query. Please try again."
       );
