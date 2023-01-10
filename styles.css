@@ -62,4 +62,7 @@ img {
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: rgba(223, 222, 228, 0.705);
 }
