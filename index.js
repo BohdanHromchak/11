@@ -7,7 +7,7 @@ form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
 loadMoreBtn.addEventListener("click", onLoadMore);
 
-loadMoreBtn.setAttribute("hidden", "hidden");
+loadMoreBtn.style.visibility = "hidden";
 
 let page = 1;
 
@@ -31,12 +31,13 @@ function onSubmit(evt) {
     gallery.innerHTML = "";
 
     if (images.totalHits > 40) {
-      loadMoreBtn.removeAttribute("hidden", "hidden");
+      loadMoreBtn.style.visibility = "visible";
     }
     if (images.hits.length === 0 || !input.value) {
       alert(
         "Sorry, there are no images matching your search query. Please try again."
       );
+      loadMoreBtn.style.visibility = "hidden";
     } else {
       createGalleryMarkup(images.hits);
     }
@@ -50,8 +51,8 @@ function onLoadMore() {
   fetchImage(onInput(), page).then((images) => {
     createGalleryMarkup(images.hits);
     if (images.totalHits === gallery.children.length) {
-      loadMoreBtn.setAttribute("hidden", "hidden");
-      alert("the end");
+      loadMoreBtn.style.visibility = "hidden";
+      alert("We're sorry, but you've reached the end of search results.");
     }
   });
 }
