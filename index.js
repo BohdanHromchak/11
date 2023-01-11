@@ -30,9 +30,7 @@ function onSubmit(evt) {
   fetchImage(onInput()).then((images) => {
     gallery.innerHTML = "";
 
-    if (images.totalHits < 40) {
-      loadMoreBtn.setAttribute("hidden", "hidden");
-    } else {
+    if (images.totalHits > 40) {
       loadMoreBtn.removeAttribute("hidden", "hidden");
     }
     if (images.hits.length === 0 || !input.value) {
