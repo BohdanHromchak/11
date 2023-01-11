@@ -7,9 +7,11 @@ form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
 loadMoreBtn.addEventListener("click", onLoadMore);
 
+loadMoreBtn.setAttribute("hidden", "hidden");
+
 let page = 1;
-// let limit = 5;
-// const totalPages = 100 / limit;
+let limit = 40;
+const totalPages = 100 / limit;
 
 /* 
 fetching images
@@ -28,14 +30,16 @@ search button
 function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput()).then((images) => {
-    // console.log(images);
+    console.log(images);
     gallery.innerHTML = "";
     if (images.hits.length === 0 || !input.value) {
       alert(
         "Sorry, there are no images matching your search query. Please try again."
       );
+      loadMoreBtn.setAttribute("hidden", "hidden");
     } else {
       createGalleryMarkup(images.hits);
+      loadMoreBtn.removeAttribute("hidden", "hidden");
     }
   });
 }
