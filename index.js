@@ -1,12 +1,3 @@
-const fetchImage = async (searchedImages, page) => {
-  const response = await fetch(
-    `https://pixabay.com/api/?key=32715422-e0410e3c137bf18af69487d41&q=${searchedImages}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
-  );
-  const images = await response.json();
-  return images;
-};
-// fetchImage().then((images) => console.log(images));
-
 const form = document.querySelector("#search-form");
 const gallery = document.querySelector(".gallery");
 const input = document.querySelector('[name="searchQuery"]');
@@ -16,10 +7,28 @@ form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
 loadMoreBtn.addEventListener("click", onLoadMore);
 
+let page = 1;
+// let limit = 5;
+// const totalPages = 100 / limit;
+
+/* 
+fetching images
+ */
+const fetchImage = async (searchedImages, page) => {
+  const response = await fetch(
+    `https://pixabay.com/api/?key=32715422-e0410e3c137bf18af69487d41&q=${searchedImages}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`
+  );
+  const images = await response.json();
+  return images;
+};
+
+/* 
+search button
+ */
 function onSubmit(evt) {
   evt.preventDefault();
-  fetchImage(onInput(evt)).then((images) => {
-    console.log(images);
+  fetchImage(onInput()).then((images) => {
+    // console.log(images);
     gallery.innerHTML = "";
     if (images.hits.length === 0 || !input.value) {
       alert(
@@ -30,12 +39,26 @@ function onSubmit(evt) {
     }
   });
 }
-
-function onInput(evt) {
-  const { searchQuery } = evt.currentTarget.elements;
-  return searchQuery.value;
+/* 
+load more button
+ */
+function onLoadMore() {
+  page += 1;
+  fetchImage(onInput(), page).then((images) => {
+    createGalleryMarkup(images.hits);
+  });
 }
 
+/* 
+input function
+ */
+function onInput() {
+  return input.value;
+}
+
+/* 
+create gallery markup
+ */
 function createGalleryMarkup(images) {
   const galleryMarkup = images
     .map(
@@ -69,8 +92,4 @@ function createGalleryMarkup(images) {
     .join("");
 
   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
-}
-
-function onLoadMore() {
-  console.log("ok");
 }
