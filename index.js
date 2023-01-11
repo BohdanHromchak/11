@@ -29,14 +29,18 @@ function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput()).then((images) => {
     gallery.innerHTML = "";
+
+    if (images.totalHits < 40) {
+      loadMoreBtn.setAttribute("hidden", "hidden");
+    } else {
+      loadMoreBtn.removeAttribute("hidden", "hidden");
+    }
     if (images.hits.length === 0 || !input.value) {
       alert(
         "Sorry, there are no images matching your search query. Please try again."
       );
-      loadMoreBtn.setAttribute("hidden", "hidden");
     } else {
       createGalleryMarkup(images.hits);
-      loadMoreBtn.removeAttribute("hidden", "hidden");
     }
   });
 }
@@ -46,9 +50,6 @@ load more button
 function onLoadMore() {
   page += 1;
   fetchImage(onInput(), page).then((images) => {
-    console.log(images);
-    // console.log(gallery.children.length);
-    // console.log(images.totalHits);
     createGalleryMarkup(images.hits);
     if (images.totalHits === gallery.children.length) {
       loadMoreBtn.setAttribute("hidden", "hidden");
