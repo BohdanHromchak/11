@@ -10,8 +10,6 @@ loadMoreBtn.addEventListener("click", onLoadMore);
 loadMoreBtn.setAttribute("hidden", "hidden");
 
 let page = 1;
-let limit = 40;
-const totalPages = 100 / limit;
 
 /* 
 fetching images
@@ -30,7 +28,6 @@ search button
 function onSubmit(evt) {
   evt.preventDefault();
   fetchImage(onInput()).then((images) => {
-    console.log(images);
     gallery.innerHTML = "";
     if (images.hits.length === 0 || !input.value) {
       alert(
@@ -49,7 +46,14 @@ load more button
 function onLoadMore() {
   page += 1;
   fetchImage(onInput(), page).then((images) => {
+    console.log(images);
+    // console.log(gallery.children.length);
+    // console.log(images.totalHits);
     createGalleryMarkup(images.hits);
+    if (images.totalHits === gallery.children.length) {
+      loadMoreBtn.setAttribute("hidden", "hidden");
+      alert("the end");
+    }
   });
 }
 
