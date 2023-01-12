@@ -59,6 +59,15 @@ function onLoadMore() {
       loadMoreBtn.style.visibility = "hidden";
       alert("We're sorry, but you've reached the end of search results.");
     }
+
+    const { height: cardHeight } = document
+      .querySelector(".gallery")
+      .firstElementChild.getBoundingClientRect();
+
+    window.scrollBy({
+      top: cardHeight * 2,
+      behavior: "smooth",
+    });
   });
 }
 
@@ -111,6 +120,7 @@ function createGalleryMarkup(images) {
     .join("");
 
   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+
   const lightbox = new SimpleLightbox(".gallery a");
   lightbox.refresh();
 }
