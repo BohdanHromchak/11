@@ -82,3 +82,7 @@ img {
   background-color: rgb(97, 84, 240);
   color: #fff;
 }
+.gallery__item {
+  text-decoration: none;
+  color: inherit;
+}

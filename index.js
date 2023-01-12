@@ -6,6 +6,7 @@ const loadMoreBtn = document.querySelector(".load-more");
 form.addEventListener("submit", onSubmit);
 form.addEventListener("input", onInput);
 loadMoreBtn.addEventListener("click", onLoadMore);
+gallery.addEventListener("click", onGalleryClick);
 
 loadMoreBtn.style.visibility = "hidden";
 
@@ -27,19 +28,23 @@ search button
  */
 function onSubmit(evt) {
   evt.preventDefault();
+  if (!input.value) {
+    return;
+  }
   fetchImage(onInput()).then((images) => {
     gallery.innerHTML = "";
 
     if (images.totalHits > 40) {
       loadMoreBtn.style.visibility = "visible";
     }
-    if (images.hits.length === 0 || !input.value) {
+    if (images.hits.length === 0) {
       alert(
         "Sorry, there are no images matching your search query. Please try again."
       );
       loadMoreBtn.style.visibility = "hidden";
     } else {
       createGalleryMarkup(images.hits);
+      alert(`Hooray! We found ${images.totalHits} images.`);
     }
   });
 }
@@ -63,7 +68,13 @@ input function
 function onInput() {
   return input.value;
 }
+/* 
+on gallery click function
+ */
 
+function onGalleryClick(evt) {
+  evt.preventDefault();
+}
 /* 
 create gallery markup
  */
@@ -79,8 +90,8 @@ function createGalleryMarkup(images) {
         comments,
         downloads,
       }) =>
-        `<div class="photo-card">
-  <img src="${webformatURL}" data-source="${largeImageURL}" alt="${tags}" loading="lazy"/>
+        `<a class="gallery__item" href="${largeImageURL}"><div class="photo-card">
+  <img src="${webformatURL}" data-source="${largeImageURL}" alt="${tags}" class="gallery__image" loading="lazy"/>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}
@@ -95,9 +106,11 @@ function createGalleryMarkup(images) {
       <b>Downloads</b>${downloads}
     </p>
   </div>
-</div>`
+</div></a>`
     )
     .join("");
 
   gallery.insertAdjacentHTML("beforeend", galleryMarkup);
+  const lightbox = new SimpleLightbox(".gallery a");
+  lightbox.refresh();
 }
