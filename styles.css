@@ -6,6 +6,10 @@ img {
   width: 280px;
   height: 180px;
 }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 .gallery {
   max-width: 1200px;
   margin: 0 auto;
@@ -81,8 +85,4 @@ img {
   border-radius: 4px;
   background-color: rgb(97, 84, 240);
   color: #fff;
-}
-.gallery__item {
-  text-decoration: none;
-  color: inherit;
 }
